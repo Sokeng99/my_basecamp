@@ -1,0 +1,64 @@
+<style>
+    .btn-custom {
+      display: inline-block;
+      background: blueviolet;
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none black;
+      border-radius: 5px;
+      margin-top: 10px;
+      cursor: pointer;
+      border: none;
+      color: black;
+    }
+    .btn-custom:hover {
+      background: #DA0463;
+    }
+</style>
+
+<div class="container">
+  <h1>Edit Project</h1>
+  <%= form_with model: @project, local: true do |f| %>
+    <div class="mb-3">
+      <%= f.label :title, class: "form-label" %>
+      <%= f.text_field :title, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :description, class: "form-label" %>
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+
+    <button type="submit" class="btn-custom">Update</button>
+  <% end %>
+
+  <h2 class="mt-4">Manage Members</h2>
+  <%= form_with url: add_member_project_path(@project), local: true do %>
+    <div class="mb-3">
+      <label for="email" class="form-label">Add Member by Email</label>
+      <input type="email" name="email" class="form-control" required>
+    </div>
+
+    <div class="form-check form-switch mb-3">
+      <input type="checkbox" name="is_admin" class="form-check-input" id="adminToggle" 
+        style="background-color: #e9ecef; border-color: #ced4da; transition: background-color 0.3s ease, border-color 0.3s ease;" 
+        onchange="this.style.backgroundColor = this.checked ? 'rgb(0, 255, 0)' : '#e9ecef'; 
+              this.style.borderColor = this.checked ? 'rgb(0, 255, 0)' : '#ced4da';">
+      <label class="form-check-label" for="adminToggle">Admin</label>
+    </div>
+
+    <button type="submit" class="btn-custom">Add Member</button>
+  <% end %>
+
+  <h3 class="mt-4">Project Members</h3>
+  <ul class="list-group">
+    <% @project.project_members.each do |member| %>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <%= member.user.email %>
+        <%= button_to toggle_admin_project_path(@project, user_id: member.user.id), method: :patch, class: "btn btn-warning btn-sm" do %>
+          <%= member.role == "admin" ? "Remove Admin" : "Make Admin" %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>

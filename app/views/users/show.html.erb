@@ -1,0 +1,8 @@
+<h1>User Profile</h1>
+
+<p><strong>Username:</strong> <%= @user.username %></p>
+<p><strong>Email:</strong> <%= @user.email %></p>
+
+<%= form_with model: @user, url: user_path(@user), method: :delete, local: true do %>
+  <%= submit_tag "Delete Account", class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
+<% end %>

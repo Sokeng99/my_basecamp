@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MyBaseCamp</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    header {
+      background: blueviolet;
+      color: #DBEDF3;
+      font-family: "Arvo", cursive;
+      text-shadow: 3px 0 #DA0463;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .btn-custom {
+      display: inline-block;
+      background: blueviolet;
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none black;
+      border-radius: 5px;
+      margin-top: 10px;
+      cursor: pointer;
+      border: none;
+      color: black;
+    }
+    .btn-custom:hover {
+      background: #DA0463;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .alert {
+      background: #f8d7da;
+      color: #721c24;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #f5c6cb;
+      border-radius: 5px;
+    }
+    .notice {
+      background: #d4edda;
+      color: #155724;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #c3e6cb;
+      border-radius: 5px;
+    }
+  </style>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1 style="color: black;">Welcome Back To Basecamp</h1>
+  </header>
+  <div class="container">
+
+  <% if flash[:notice] %>
+    <div class="flash-message notice">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+
+  <% if flash[:alert] %>
+    <div class="flash-message alert">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+    <%= yield %>
+  </div>
+</body>
+<footer>
+    &copy; <%= Time.now.year %> MyBaseCamp 1 <br>
+    Developed by SokEng-Chan and Bunkhloem.
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  setTimeout(function () {
+    const flashMessages = document.querySelectorAll(".flash-message");
+    flashMessages.forEach(function (message) {
+      message.style.display = "none";
+    });
+  }, 5000); 
+});
+</script>
+
+</html>
